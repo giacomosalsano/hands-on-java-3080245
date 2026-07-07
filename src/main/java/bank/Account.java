@@ -39,4 +39,13 @@ public class Account {
     this.balance = balance;
   }
 
+  public void deposit(double amount) {
+    System.out.println("Successfully deposited: " + amount + " into the account." );
+  }
+
+  public void withdraw(double amount) {
+    System.out.println("Successfully withdraw: " + amount + " from the account.");
+
+  }
+
 }
