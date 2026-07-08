@@ -72,8 +72,6 @@ public class DataSource {
             resultSet.getString("type"),
             resultSet.getDouble("balance"));
       }
-      ;
-
     } catch (SQLException e) {
       System.out.println("----------------------------------------------------");
       System.out.println("Error while getting account: " + accountId + ".\n"); // INFO: For security, avoid logging
@@ -87,10 +85,23 @@ public class DataSource {
     return account;
   }
 
-  // TODO: update the following method:
-  public static void main(String[] args) {
-    Account account = getAccount(11748); 
+  public static void updateAccountBalance(int account_id, double balance) throws SQLException {
+    String sql = "update accounts set balance = ? where id = ?";
 
-    System.out.println(account.getId());
+    try (Connection connection = connect();
+        PreparedStatement statement = connection.prepareStatement(sql);) {
+
+      statement.setDouble(1, balance);
+      statement.setInt(2, account_id);
+
+      statement.executeUpdate();
+
+    } catch (SQLException e) {
+      System.out.println("----------------------------------------------------");
+      System.out.println("Error while updating balance from account with id: " + account_id + ".\n");
+      e.printStackTrace();
+      System.out.println("---------------------------------------------------- \n");
+    }
   }
+
 }
