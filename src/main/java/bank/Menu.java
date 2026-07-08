@@ -89,7 +89,14 @@ public class Menu {
 
           amount = scanner.nextDouble();
 
-          account.withdraw(amount);
+          try {
+            account.withdraw(amount);
+          } catch (AmountException e) {
+            System.out.println("----------------------------------------------------");
+            System.out.println("Error while withdrawing " + amount + "€ from your account. Please try again later.\n");
+            e.getMessage();
+            System.out.println("---------------------------------------------------- \n");
+          }
 
           break;
 
