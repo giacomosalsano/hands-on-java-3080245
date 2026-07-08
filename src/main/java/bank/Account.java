@@ -63,8 +63,29 @@ public class Account {
     }
   }
 
-  public void withdraw(double amount) {
-    System.out.println("Successfully withdraw: " + amount + " from the account.");
+  public void withdraw(double amount) throws AmountException {
+    double actualBalance = getBalance();
+    double newBalance = actualBalance - amount;
+    boolean itCanWithdraw = amount <= actualBalance;
+
+    if (amount < 0.5) {
+      throw new AmountException("The minimun withdraw is 0.50€");
+    } else if (!itCanWithdraw) {
+      throw new AmountException("You do not have sufficient funds for this withdraw. Your balance is: ");
+    } else {
+      setBalance(newBalance);
+      try {
+        DataSource.updateAccountBalance(id, newBalance);
+        System.out.println(
+            "Successfully withdrawed: " + amount + "€ into your account. Your balance is now: " + newBalance + "€.");
+      } catch (SQLException e) {
+        System.out.println("----------------------------------------------------");
+        System.out.println("Error while withdrawing " + amount + "€ from your account. Please try again later.\n");
+        System.out.println(e.getMessage());
+        System.out.println("---------------------------------------------------- \n");
+        throw new RuntimeException(e);
+      }
+    }
 
   }
 
