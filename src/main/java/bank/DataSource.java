@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import bank.models.Account;
+
 public class DataSource {
 
   public static Connection connect() {

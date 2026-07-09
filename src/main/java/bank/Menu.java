@@ -5,6 +5,7 @@ import java.util.Scanner;
 import javax.security.auth.login.LoginException;
 
 import bank.exceptions.AmountException;
+import bank.models.Account;
 
 public class Menu {
 
