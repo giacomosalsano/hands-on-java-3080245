@@ -2,6 +2,8 @@ package bank;
 
 import javax.security.auth.login.LoginException;
 
+import bank.models.Customer;
+
 public class Authenticator {
 
   public static Customer login(String username, String password) throws LoginException {
@@ -11,7 +13,7 @@ public class Authenticator {
       throw new LoginException("Login failed: the username or password is incorrect.");
     }
 
-    if(password.equals(customer.getPassword())) {
+    if(password.equals(customer.getPasswordHash())) {
       customer.setAuthenticated(true);
 
       return customer;

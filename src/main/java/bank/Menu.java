@@ -1,11 +1,13 @@
 package bank;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 import javax.security.auth.login.LoginException;
 
 import bank.exceptions.AmountException;
 import bank.models.Account;
+import bank.models.Customer;
 
 public class Menu {
 
@@ -64,13 +66,13 @@ public class Menu {
       System.out.println("----------------------------------------------------");
 
       selection = scanner.nextInt();
-      double amount = 0;
+      BigDecimal amount = BigDecimal.ZERO;
 
       switch (selection) {
         case 1:
           System.out.println("How much would you like to deposit?");
 
-          amount = scanner.nextDouble();
+          amount = BigDecimal.valueOf(scanner.nextDouble());
 
           try {
             account.deposit(amount);
@@ -88,7 +90,7 @@ public class Menu {
         case 2:
           System.out.println("How much would you like to withdraw?");
 
-          amount = scanner.nextDouble();
+          amount = BigDecimal.valueOf(scanner.nextDouble());
 
           try {
             account.withdraw(amount);
@@ -102,7 +104,7 @@ public class Menu {
           break;
 
         case 3:
-          double balance = account.getBalance();
+          BigDecimal balance = account.getBalance();
 
           System.out.println("Your current balance is: " + balance + "€.");
 

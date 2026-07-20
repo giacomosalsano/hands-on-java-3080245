@@ -1,5 +1,6 @@
 package bank;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import bank.models.Account;
+import bank.models.Customer;
 
 public class DataSource {
 
@@ -72,7 +74,7 @@ public class DataSource {
         account = new Account(
             resultSet.getInt("id"),
             resultSet.getString("type"),
-            resultSet.getDouble("balance"));
+            resultSet.getBigDecimal("balance"));
       }
     } catch (SQLException e) {
       System.out.println("----------------------------------------------------");
@@ -87,13 +89,13 @@ public class DataSource {
     return account;
   }
 
-  public static void updateAccountBalance(int account_id, double balance) throws SQLException {
+  public static void updateAccountBalance(int account_id, BigDecimal balance) throws SQLException {
     String sql = "update accounts set balance = ? where id = ?";
 
     try (Connection connection = connect();
         PreparedStatement statement = connection.prepareStatement(sql);) {
 
-      statement.setDouble(1, balance);
+      statement.setBigDecimal(1, balance);
       statement.setInt(2, account_id);
 
       statement.executeUpdate();
